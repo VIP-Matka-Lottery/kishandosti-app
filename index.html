@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kishan Dosti | Khet aur Mazdoor</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="hero-section">
+        <div class="overlay">
+            <div class="logo-area">
+                <img src="https://img.freepik.com/free-photo/stunning-shot-green-paddy-field-cloudy-sky-vibrant-colors_181624-15944.jpg" alt="Dhan ka khet" class="header-img">
+                <h1 class="tiranga-text">Kishan Dosti</h1>
+                <p>Kishano aur Mazdooron ka atoot rishta 🌾</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="card">
+            <h2><i class="fas fa-edit"></i> Naya Kaam Dalein</h2>
+            <p>Yahan apni zarurat likhein taaki mazdoor aap tak pahuch sakein.</p>
+            <form id="jobForm">
+                <div class="input-group">
+                    <input type="text" id="jobTitle" placeholder="Kaam ka naam (e.g. Gehu ki katai)" required>
+                    <input type="text" id="jobLocation" placeholder="Gaon ka naam / Pata" required>
+                    <input type="number" id="jobPrice" placeholder="Majdoori (₹)" required>
+                </div>
+                <button type="button" onclick="addJob()" class="btn-post">Kaam Post Karein</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2><i class="fas fa-briefcase"></i> Kaam ki Talash</h2>
+            <div id="jobList" class="job-container">
+                <div class="job-item">
+                    <div class="job-info">
+                        <h3>Dhan ki Ropai</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> Rampur Gaon | <i class="fas fa-money-bill-wave"></i> ₹450/din</p>
+                    </div>
+                    <button class="btn-apply" onclick="applyJob()">Apply</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <a href="https://wa.me/910000000000" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i> Help chahiye?
+    </a>
+
+    <script src="script.js"></script>
+</body>
+</html>
