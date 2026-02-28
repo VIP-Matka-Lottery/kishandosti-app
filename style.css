@@ -1,111 +1,38 @@
-/* Sab kuch reset karne ke liye */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Poppins', Arial, sans-serif; background-color: #f4f7f4; color: #333; line-height: 1.6; }
-
-/* Header Design */
+/* Header styling */
 header {
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
                 url('https://img.freepik.com/free-photo/farmer-working-rice-field_1150-6052.jpg');
     background-size: cover;
-    background-position: center;
-    padding: 40px 20px;
+    padding: 30px 10px;
     text-align: center;
     color: white;
 }
 
-/* App Icon/Logo ko chhota aur sahi karne ke liye */
+/* Logo ko chhota aur gol karne ke liye */
 .app-icon {
-    width: 80px;  /* Size chhota kiya gaya */
-    height: 80px;
+    width: 60px !important; /* Size chhota kiya */
+    height: 60px !important;
     border-radius: 50%;
-    border: 3px solid #fff;
+    border: 2px solid white;
     margin-bottom: 10px;
-    background: white;
 }
 
-/* Tiranga Text - Bada aur Stylish */
+/* Tiranga Text Style */
 .tiranga-text {
-    font-size: 3.5rem;
-    font-weight: 900;
-    letter-spacing: 2px;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     background: linear-gradient(to bottom, #FF9933 33%, #FFFFFF 33%, #FFFFFF 66%, #138808 66%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    display: block;
-    margin: 10px 0;
 }
 
-/* Cards Design */
-.container { padding: 20px; max-width: 600px; margin: -30px auto 0; }
-.card {
-    background: white;
-    padding: 25px;
-    border-radius: 20px;
-    margin-bottom: 25px;
-    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-}
-
-.form-title {
-    color: #2e7d32;
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #f57c00;
-    padding-bottom: 5px;
-}
-
-/* Input Fields - Bada Text */
-.input-group label {
-    display: block;
-    font-weight: bold;
-    margin-top: 15px;
-    font-size: 1.1rem;
-}
-
-input {
-    width: 100%;
-    padding: 12px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 1.1rem;
-}
-
-/* Buttons */
-button {
-    width: 100%;
-    padding: 15px;
-    margin-top: 20px;
-    border: none;
-    border-radius: 10px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    cursor: pointer;
-    color: white;
-}
-.btn-kishan { background-color: #2e7d32; }
-.btn-majdoor { background-color: #f57c00; }
-
-/* Unified List Items */
+/* Post items style */
 .post-item {
-    background: #fff;
-    border-left: 8px solid #2e7d32;
+    background: white;
+    margin: 10px 0;
     padding: 15px;
-    margin-top: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-}
-
-/* WhatsApp Floating Button */
-.whatsapp-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #25d366;
-    color: white;
-    padding: 12px 25px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    z-index: 1000;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-left: 5px solid #2e7d32;
 }
