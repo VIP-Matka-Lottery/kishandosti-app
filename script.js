@@ -1,29 +1,38 @@
-function addJob() {
-    const title = document.getElementById('jobTitle').value;
-    const location = document.getElementById('jobLocation').value;
-    const price = document.getElementById('jobPrice').value;
+function postKishan() {
+    let job = document.getElementById('kJob').value;
+    let loc = document.getElementById('kLoc').value;
+    let phone = document.getElementById('kPhone').value;
+    let price = document.getElementById('kPrice').value;
 
-    if(title && location && price) {
-        const jobList = document.getElementById('jobList');
-        
-        const newJob = document.createElement('div');
-        newJob.className = 'job-item';
-        newJob.innerHTML = `
-            <div class="job-info">
-                <h3>${title}</h3>
-                <p><i class="fas fa-map-marker-alt"></i> ${location} | <i class="fas fa-money-bill-wave"></i> ₹${price}/din</p>
+    if(job && loc && phone) {
+        let list = document.getElementById('unifiedList');
+        list.innerHTML = `
+            <div class="post-item kishan-post">
+                <span class="tag">Kishan ki Zarurat</span>
+                <h3>${job}</h3>
+                <p>📍 ${loc} | 📞 ${phone} | 💰 ₹${price}/din</p>
+                <button class="call-btn" onclick="window.location.href='tel:${phone}'">Sampark Karein</button>
             </div>
-            <button class="btn-apply" onclick="applyJob()">Apply</button>
-        `;
-        
-        jobList.prepend(newJob);
-        document.getElementById('jobForm').reset();
-        alert("Kaam saphalta purvak post ho gaya!");
-    } else {
-        alert("Kripya saari jankari bharein.");
+        ` + list.innerHTML;
+        document.getElementById('kishanForm').reset();
     }
 }
 
-function applyJob() {
-    alert("Aapka aavedan kishan tak pahuch gaya hai! Woh aapse jald sampark karenge.");
+function postMajdoor() {
+    let name = document.getElementById('mName').value;
+    let skill = document.getElementById('mSkill').value;
+    let phone = document.getElementById('mPhone').value;
+
+    if(name && skill && phone) {
+        let list = document.getElementById('unifiedList');
+        list.innerHTML = `
+            <div class="post-item majdoor-post">
+                <span class="tag-m">Majdoor available</span>
+                <h3>${name} (${skill})</h3>
+                <p>📞 ${phone}</p>
+                <button class="call-btn" onclick="window.location.href='tel:${phone}'">Kaam Par Bulayein</button>
+            </div>
+        ` + list.innerHTML;
+        document.getElementById('majdoorForm').reset();
+    }
 }
