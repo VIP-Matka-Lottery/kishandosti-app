@@ -3,70 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post Karein | Kishan Dosti</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Kaam Dalein | Kishan Dosti</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; background: #f0f4f0; }
-        .nav-tabs { display: flex; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .nav-tabs a { flex: 1; text-align: center; padding: 15px; text-decoration: none; color: #666; font-weight: bold; }
-        .nav-tabs a.active { color: #2e7d32; border-bottom: 3px solid #2e7d32; }
-        .container { padding: 25px; max-width: 500px; margin: auto; }
-        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        input { width: 100%; padding: 15px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 12px; font-size: 1.1rem; outline: none; transition: 0.3s; }
-        input:focus { border-color: #2e7d32; box-shadow: 0 0 8px rgba(46,125,50,0.2); }
-        button { width: 100%; padding: 18px; background: #2e7d32; color: white; border: none; border-radius: 12px; font-weight: bold; font-size: 1.2rem; cursor: pointer; }
-        button:disabled { background: #ccc; }
+        body { font-family: sans-serif; background: #f0f4f0; padding: 20px; }
+        .card { background: white; padding: 25px; border-radius: 20px; max-width: 450px; margin: auto; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        h2 { color: #2e7d32; text-align: center; margin-bottom: 20px; }
+        label { font-weight: bold; color: #444; display: block; margin-bottom: 5px; }
+        select, input { width: 100%; padding: 14px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 10px; font-size: 1rem; outline: none; }
+        button { width: 100%; padding: 16px; background: #2e7d32; color: white; border: none; border-radius: 10px; font-weight: bold; font-size: 1.2rem; cursor: pointer; transition: 0.3s; }
+        button:active { transform: scale(0.98); }
+        .back { display: block; text-align: center; margin-top: 15px; color: #666; text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div class="nav-tabs">
-    <a href="index.html"><i class="fas fa-search"></i> Kaam Khojein</a>
-    <a href="post.html" class="active"><i class="fas fa-plus-circle"></i> Kaam Dalein</a>
-</div>
+<div class="card">
+    <h2>Naya Kaam Live Karein</h2>
+    
+    <label>Apna Rajya Chunein:</label>
+    <select id="st">
+        <option value="Bihar">Bihar</option>
+        <option value="Uttar Pradesh">Uttar Pradesh (UP)</option>
+        <option value="West Bengal">West Bengal</option>
+        <option value="Jharkhand">Jharkhand</option>
+    </select>
 
-<div class="container">
-    <div class="card">
-        <h2 style="color:#2e7d32; margin-bottom:20px; text-align:center;">Naya Kaam Live Karein</h2>
-        <input type="text" id="t" placeholder="Kaunsa kaam hai? (e.g. Katai)">
-        <input type="text" id="l" placeholder="Gaon aur Rajya">
-        <input type="tel" id="p" placeholder="Mobile Number">
-        <input type="text" id="pr" placeholder="Majdoori ₹">
-        <button id="submitBtn" onclick="saveToCloud()">Sabko Dikhao (Save)</button>
-    </div>
+    <label>Kaam Kya Hai?</label>
+    <input type="text" id="t" placeholder="e.g. Gehu Katai, Dhan Ropai">
+
+    <label>Gaon/Area ka Naam:</label>
+    <input type="text" id="l" placeholder="Apne gaon ka naam likhein">
+
+    <label>Mobile Number:</label>
+    <input type="tel" id="p" placeholder="Apna Number">
+
+    <label>Majdoori (₹):</label>
+    <input type="text" id="pr" placeholder="e.g. 400 ya Boli lagayein">
+    
+    <button id="saveBtn" onclick="saveData()">SABKO DIKHAO (Post)</button>
+    <a href="index.html" class="back"><i class="fas fa-arrow-left"></i> Piche Jayein</a>
 </div>
 
 <script>
-    async function saveToCloud() {
-        const btn = document.getElementById('submitBtn');
+    const firebaseConfig = { databaseURL: "https://kishan-dosti-regional-default-rtdb.firebaseio.com/" };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    function saveData() {
+        const btn = document.getElementById('saveBtn');
+        const st = document.getElementById('st').value;
         const t = document.getElementById('t').value;
         const l = document.getElementById('l').value;
         const p = document.getElementById('p').value;
         const pr = document.getElementById('pr').value;
 
-        if(!t || !p) { alert("Details bharein!"); return; }
-        btn.innerHTML = "Saving... ⌛"; btn.disabled = true;
+        if(!t || !p || !l) { alert("Bhai, sari jankari bharna zaroori hai!"); return; }
+        
+        btn.disabled = true; btn.innerText = "Saving... ⏳";
 
-        try {
-            const res = await fetch('https://api.jsonbin.io/v3/b/65df4b68dc74654018ac93d9/latest', {
-                headers: { 'X-Master-Key': '$2a$10$vN0U4p.N99n.73eC6rA9UeRkM.E9sD.eP5Y.G/Yk1w3qH.e4U.S.G' }
-            });
-            const oldData = await res.json();
-            const newPosts = [{ t, l, p, pr }, ...oldData.record.posts].slice(0, 30); // Top 30 posts only
-
-            await fetch('https://api.jsonbin.io/v3/b/65df4b68dc74654018ac93d9', {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json', 'X-Master-Key': '$2a$10$vN0U4p.N99n.73eC6rA9UeRkM.E9sD.eP5Y.G/Yk1w3qH.e4U.S.G' },
-                body: JSON.stringify({ posts: newPosts })
-            });
-
-            alert("Zindabad! Kaam Live ho gaya hai.");
+        db.ref('posts').push({ st, t, l, p, pr }).then(() => {
+            alert("Zindabad! Kaam ab sabko dikh raha hai.");
             window.location.href = "index.html";
-        } catch (e) {
-            alert("Network Error! Phir se koshish karein.");
-            btn.innerHTML = "Retry"; btn.disabled = false;
-        }
+        }).catch(err => {
+            alert("Error! Net check karein.");
+            btn.disabled = false; btn.innerText = "POST KAREIN";
+        });
     }
 </script>
 </body>
