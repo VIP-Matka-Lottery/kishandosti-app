@@ -3,100 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kishan Dosti | Live App</title>
+    <title>Kishan Dosti | Kaam Khojein</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; background-color: #f4f7f4; padding-bottom: 50px; }
-        header {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                        url('https://img.freepik.com/free-photo/farmer-working-rice-field_1150-6052.jpg');
-            background-size: cover; padding: 30px 10px; text-align: center; color: white;
-        }
-        .app-icon {
-            width: 80px !important; height: 80px !important;
-            border-radius: 50% !important; object-fit: cover !important;
-            border: 3px solid #fff; margin-bottom: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: inline-block;
-        }
-        .tiranga-text {
-            font-size: 2.2rem; font-weight: 900;
-            background: linear-gradient(to bottom, #FF9933 33%, #FFFFFF 33%, #FFFFFF 66%, #138808 66%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            display: block; filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.5));
-        }
-        .container { padding: 15px; max-width: 500px; margin: -20px auto 0; }
-        .card { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        h2 { color: #2e7d32; font-size: 1.2rem; margin-bottom: 10px; border-left: 5px solid #f57c00; padding-left: 8px; }
-        input { width: 100%; padding: 12px; margin-top: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem; }
-        .btn-post { width: 100%; padding: 14px; margin-top: 15px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; color: white; font-size: 1.1rem; background: #2e7d32; }
-        .post-item { background: #fff; padding: 15px; margin-top: 15px; border-radius: 12px; border-left: 6px solid #2e7d32; position: relative; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: left; }
+        body { font-family: 'Poppins', sans-serif; background: #f4f7f4; padding-bottom: 70px; }
+        header { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://img.freepik.com/free-photo/farmer-working-rice-field_1150-6052.jpg'); background-size: cover; padding: 30px 10px; text-align: center; color: white; }
+        .app-icon { width: 80px; height: 80px; border-radius: 50%; border: 3px solid #fff; object-fit: cover; margin-bottom: 10px; }
+        .tiranga-text { font-size: 2.2rem; font-weight: 900; background: linear-gradient(to bottom, #FF9933 33%, #FFFFFF 33%, #FFFFFF 66%, #138808 66%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* Navigation Tabs */
+        .nav-tabs { display: flex; background: white; sticky: top; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .nav-tabs a { flex: 1; text-align: center; padding: 15px; text-decoration: none; color: #666; font-weight: bold; border-bottom: 3px solid transparent; }
+        .nav-tabs a.active { color: #2e7d32; border-bottom-color: #2e7d32; }
+
+        .container { padding: 15px; max-width: 500px; margin: auto; }
+        .post-item { background: #fff; padding: 15px; margin-top: 15px; border-radius: 12px; border-left: 6px solid #2e7d32; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         .call-btn { display: inline-block; margin-top: 10px; color: #2e7d32; text-decoration: none; font-weight: bold; border: 2px solid #2e7d32; padding: 6px 12px; border-radius: 6px; }
+        
+        /* Floating Button for Posting */
+        .post-link { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #2e7d32; color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 15px rgba(46,125,50,0.4); z-index: 1000; }
     </style>
 </head>
 <body>
 
-    <header>
-        <img src="my-photo.jpg" alt="Logo" class="app-icon" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2664/2664531.png'">
-        <h1 class="tiranga-text">KISHAN DOSTI</h1>
-        <p>Pure India ke liye Live App 🌾</p>
-    </header>
+<header>
+    <img src="my-photo.jpg" alt="Logo" class="app-icon" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2664/2664531.png'">
+    <h1 class="tiranga-text">KISHAN DOSTI</h1>
+    <p>Sabka Saath, Sabka Vikas 🌾</p>
+</header>
 
-    <div class="container">
-        <section class="card">
-            <h2><i class="fas fa-globe"></i> Poore India mein Post karein</h2>
-            <input type="text" id="title" placeholder="Kaam ka naam (e.g. Gehu Katai)">
-            <input type="text" id="loc" placeholder="Gaon aur Rajya">
-            <input type="tel" id="phone" placeholder="Mobile Number">
-            <button class="btn-post" onclick="postJob()">Sabko Dikhao (Post)</button>
-        </section>
+<div class="nav-tabs">
+    <a href="index.html" class="active"><i class="fas fa-search"></i> Kaam Khojein</a>
+    <a href="post.html"><i class="fas fa-plus-circle"></i> Kaam Dalein</a>
+</div>
 
-        <h2 style="text-align:center; color: #2e7d32;">Nayi Postings (Live)</h2>
-        <div id="postsDisplay"></div>
+<div class="container">
+    <h2 style="margin: 10px 0; color: #2e7d32;">Nayi Postings (Live)</h2>
+    <div id="postsDisplay">
+        <p style="text-align:center; padding:20px;">Net check karein aur posts load hone dein...</p>
     </div>
+</div>
 
-    <script>
-        // Database simulation (Global for all tabs)
-        function renderPosts() {
-            const container = document.getElementById('postsDisplay');
-            // Hum ek public service use kar rahe hain data dikhane ke liye
-            fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://api.jsonbin.io/v3/b/65df4b68dc74654018ac93d9/latest'))
-            .then(response => response.json())
-            .then(data => {
-                const posts = JSON.parse(localStorage.getItem('global_kd_posts')) || [];
-                if(posts.length === 0) {
-                    container.innerHTML = "<p style='text-align:center; padding:20px;'>Abhi koi post nahi hai.</p>";
-                } else {
-                    container.innerHTML = posts.map(post => `
-                        <div class="post-item">
-                            <h3>${post.t}</h3>
-                            <p>📍 ${post.l}</p>
-                            <a href="tel:${post.p}" class="call-btn"><i class="fas fa-phone"></i> Call: ${post.p}</a>
-                        </div>
-                    `).join('');
-                }
-            })
-            .catch(() => {
-                container.innerHTML = "<p style='text-align:center;'>Net check karein...</p>";
-            });
+<a href="post.html" class="post-link"><i class="fas fa-plus"></i> Naya Kaam Dalein</a>
+
+<script>
+    // Live Data Simulation
+    function loadLivePosts() {
+        const container = document.getElementById('postsDisplay');
+        const posts = JSON.parse(localStorage.getItem('kd_live_data')) || [];
+        
+        if(posts.length === 0) {
+            container.innerHTML = "<p style='text-align:center; padding:40px; color:#888;'>Abhi koi post nahi hai. Pehle kaam dalein!</p>";
+        } else {
+            container.innerHTML = posts.map(p => `
+                <div class="post-item">
+                    <h3>${p.t}</h3>
+                    <p style="color:#555;">📍 ${p.l} | 💰 ${p.pr}</p>
+                    <a href="tel:${p.p}" class="call-btn"><i class="fas fa-phone"></i> Call: ${p.p}</a>
+                </div>
+            `).join('');
         }
-
-        function postJob() {
-            const t = document.getElementById('title').value;
-            const l = document.getElementById('loc').value;
-            const p = document.getElementById('phone').value;
-
-            if(!t || !p) { alert("Details bharein!"); return; }
-
-            const posts = JSON.parse(localStorage.getItem('global_kd_posts')) || [];
-            posts.unshift({ t, l, p });
-            localStorage.setItem('global_kd_posts', JSON.stringify(posts));
-            
-            alert("Post ho gaya!");
-            renderPosts();
-            document.querySelectorAll('input').forEach(i => i.value = '');
-        }
-
-        window.onload = renderPosts;
-    </script>
+    }
+    window.onload = loadLivePosts;
+</script>
 </body>
 </html>
