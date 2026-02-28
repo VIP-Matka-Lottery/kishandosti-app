@@ -3,131 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kishan Dosti | Sabka Saath</title>
+    <title>Kishan Dosti | Global App</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        /* --- DESIGN FIXES --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; background-color: #f0f4f0; }
+        body { font-family: 'Poppins', sans-serif; background-color: #f4f7f4; padding-bottom: 50px; }
 
         header {
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
                         url('https://img.freepik.com/free-photo/farmer-working-rice-field_1150-6052.jpg');
-            background-size: cover; padding: 40px 15px; text-align: center; color: white;
+            background-size: cover; padding: 30px 10px; text-align: center; color: white;
         }
 
-        /* PHOTO SIZE LOCK: Isse photo screen se badi nahi hogi */
         .app-icon {
-            width: 100px !important; 
-            height: 100px !important;
-            border-radius: 50% !important; 
-            object-fit: cover !important;
-            border: 3px solid white; 
-            margin-bottom: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            display: inline-block;
+            width: 90px !important; height: 90px !important;
+            border-radius: 50% !important; object-fit: cover !important;
+            border: 3px solid #fff; margin-bottom: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: inline-block;
         }
 
         .tiranga-text {
-            font-size: 2.5rem; font-weight: 900;
+            font-size: 2.2rem; font-weight: 900;
             background: linear-gradient(to bottom, #FF9933 33%, #FFFFFF 33%, #FFFFFF 66%, #138808 66%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             display: block; filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.5));
         }
 
-        .container { padding: 15px; max-width: 500px; margin: -30px auto 0; }
-        .card { background: white; padding: 25px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-        h2 { color: #2e7d32; font-size: 1.4rem; margin-bottom: 15px; border-left: 5px solid #f57c00; padding-left: 10px; }
-        input { width: 100%; padding: 12px; margin-top: 10px; border: 1px solid #ddd; border-radius: 8px; }
-        button { width: 100%; padding: 14px; margin-top: 15px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; color: white; font-size: 1.1rem; }
-        .btn-kishan { background: #2e7d32; } .btn-majdoor { background: #f57c00; }
+        .container { padding: 15px; max-width: 500px; margin: -20px auto 0; }
+        .card { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        
+        h2 { color: #2e7d32; font-size: 1.2rem; margin-bottom: 10px; border-left: 5px solid #f57c00; padding-left: 8px; }
+        input { width: 100%; padding: 12px; margin-top: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem; }
+        
+        .btn-post { width: 100%; padding: 14px; margin-top: 15px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; color: white; font-size: 1.1rem; background: #2e7d32; }
 
-        /* POSTS AREA */
         .post-item { background: #fff; padding: 15px; margin-top: 15px; border-radius: 12px; border-left: 6px solid #2e7d32; position: relative; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: left; }
-        .majdoor-post { border-left-color: #f57c00; }
-        .del-btn { position: absolute; top: 10px; right: 10px; color: #ff4444; border: none; background: none; cursor: pointer; width: auto; }
-        .whatsapp-btn { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .call-btn { display: inline-block; margin-top: 10px; color: #2e7d32; text-decoration: none; font-weight: bold; border: 2px solid #2e7d32; padding: 6px 12px; border-radius: 6px; }
     </style>
 </head>
 <body>
 
     <header>
-        <img src="my-photo.jpg" alt="Logo" class="app-icon">
+        <img src="my-photo.jpg" alt="Logo" class="app-icon" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2664/2664531.png'">
         <h1 class="tiranga-text">KISHAN DOSTI</h1>
-        <p>Sabka Saath, Sabka Vikas 🌾</p>
+        <p>Pure India ke liye Live App 🌾</p>
     </header>
 
     <div class="container">
         <section class="card">
-            <h2><i class="fas fa-tractor"></i> Naya Kaam Dalein</h2>
-            <input type="text" id="kJob" placeholder="Kaunsa kaam hai?">
-            <input type="text" id="kLoc" placeholder="Gaon ka naam">
-            <input type="tel" id="kPhone" placeholder="Mobile Number">
-            <input type="number" id="kPrice" placeholder="Majdoori ₹">
-            <button class="btn-kishan" onclick="savePost('kishan')">Post Karein</button>
+            <h2><i class="fas fa-globe"></i> Poore India mein Post karein</h2>
+            <input type="text" id="title" placeholder="Kaam ka naam (e.g. Gehu Katai)">
+            <input type="text" id="loc" placeholder="Gaon aur Rajya">
+            <input type="tel" id="phone" placeholder="Mobile Number">
+            <button class="btn-post" onclick="postToFirebase()">Sabko Dikhao (Post)</button>
         </section>
 
-        <section class="card">
-            <h2><i class="fas fa-hands-helping"></i> Kaam Chahiye</h2>
-            <input type="text" id="mName" placeholder="Apna naam">
-            <input type="text" id="mSkill" placeholder="Kya kaam kar sakte hain?">
-            <input type="tel" id="mPhone" placeholder="Mobile Number">
-            <button class="btn-majdoor" onclick="savePost('majdoor')">Details Dalein</button>
-        </section>
-
-        <h2 style="text-align:center; margin: 20px 0;">Nayi Postings</h2>
-        <div id="postDisplay"></div>
+        <h2 style="text-align:center;">Nayi Postings (Live)</h2>
+        <div id="posts">
+            <p style="text-align:center; padding:20px;">Load ho raha hai...</p>
+        </div>
     </div>
 
-    <a href="https://wa.me/91XXXXXXXXXX" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Help?</a>
-
     <script>
-        /* STORAGE LOGIC: Refresh karne par data nahi jayega */
-        window.onload = renderPosts;
+        // FIREBASE SETUP (Maine ek temporary demo db connect kiya hai)
+        const firebaseConfig = {
+            databaseURL: "https://kishan-dosti-demo-default-rtdb.firebaseio.com/" 
+        };
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
 
-        function savePost(type) {
-            let data = (type === 'kishan') ? {
-                type: 'kishan', title: document.getElementById('kJob').value,
-                loc: document.getElementById('kLoc').value, phone: document.getElementById('kPhone').value,
-                price: document.getElementById('kPrice').value, time: new Date().toLocaleString()
-            } : {
-                type: 'majdoor', title: document.getElementById('mName').value,
-                skill: document.getElementById('mSkill').value, phone: document.getElementById('mPhone').value,
-                loc: "Available", time: new Date().toLocaleString()
-            };
+        // Data Post karne ka function
+        function postToFirebase() {
+            const t = document.getElementById('title').value;
+            const l = document.getElementById('loc').value;
+            const p = document.getElementById('phone').value;
 
-            if(!data.title || !data.phone) { alert("Mobile Number aur Naam zaroor bharein!"); return; }
+            if(!t || !p) { alert("Naam aur Mobile Number bharein!"); return; }
 
-            let posts = JSON.parse(localStorage.getItem('kishan_posts')) || [];
-            posts.unshift(data);
-            localStorage.setItem('kishan_posts', JSON.stringify(posts));
-            document.querySelectorAll('input').forEach(i => i.value = '');
-            renderPosts();
-            alert("Kaam Save ho gaya!");
-        }
-
-        function renderPosts() {
-            let posts = JSON.parse(localStorage.getItem('kishan_posts')) || [];
-            let display = document.getElementById('postDisplay');
-            display.innerHTML = '';
-            posts.forEach((p, i) => {
-                let div = document.createElement('div');
-                div.className = (p.type === 'kishan') ? 'post-item' : 'post-item majdoor-post';
-                div.innerHTML = `<h3>${p.title}</h3>
-                                 <p>📍 ${p.loc} | 📞 <a href="tel:${p.phone}">${p.phone}</a></p>
-                                 <button class="del-btn" onclick="deletePost(${i})"><i class="fas fa-trash"></i></button>`;
-                display.appendChild(div);
+            const newPostRef = database.ref('posts').push();
+            newPostRef.set({
+                title: t,
+                location: l,
+                phone: p,
+                timestamp: Date.now()
+            }).then(() => {
+                alert("Post ho gaya! Ab ye poore India ko dikhega.");
+                document.querySelectorAll('input').forEach(i => i.value = '');
             });
         }
 
-        function deletePost(i) {
-            if(confirm("Kya aap ise hatana chahte hain?")) {
-                let posts = JSON.parse(localStorage.getItem('kishan_posts'));
-                posts.splice(i, 1);
-                localStorage.setItem('kishan_posts', JSON.stringify(posts));
-                renderPosts();
+        // Real-time Data Fetching (Live update)
+        database.ref('posts').on('value', (snapshot) => {
+            const container = document.getElementById('posts');
+            container.innerHTML = '';
+            const data = snapshot.val();
+            
+            if(!data) {
+                container.innerHTML = "<p style='text-align:center;'>Abhi koi post nahi hai.</p>";
+                return;
             }
-        }
+
+            // Data ko list mein badalna aur dikhana
+            Object.values(data).reverse().forEach(post => {
+                const div = document.createElement('div');
+                div.className = 'post-item';
+                div.innerHTML = `
+                    <h3>${post.title}</h3>
+                    <p>📍 ${post.location}</p>
+                    <a href="tel:${post.phone}" class="call-btn"><i class="fas fa-phone"></i> Call: ${post.phone}</a>
+                `;
+                container.appendChild(div);
+            });
+        });
     </script>
 </body>
 </html>
