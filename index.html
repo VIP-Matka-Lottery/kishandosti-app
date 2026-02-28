@@ -6,25 +6,21 @@
     <title>Kishan Dosti | Sabka Saath</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* --- CSS: DESIGN SECTION --- */
+        /* DESIGN SECTION */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; background-color: #f0f4f0; color: #333; }
+        body { font-family: 'Poppins', sans-serif; background-color: #f0f4f0; }
 
         header {
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
                         url('https://img.freepik.com/free-photo/farmer-working-rice-field_1150-6052.jpg');
-            background-size: cover; background-position: center;
-            padding: 40px 15px; text-align: center; color: white;
+            background-size: cover; padding: 40px 15px; text-align: center; color: white;
         }
 
-        /* PHOTO/LOGO FIX: Isse photo screen se bahar nahi jayegi */
+        /* PHOTO/LOGO FIX */
         .app-icon {
-            width: 100px !important; 
-            height: 100px !important;
-            border-radius: 50% !important;
-            object-fit: cover !important; /* Photo gol frame mein sahi dikhegi */
-            border: 3px solid white;
-            margin-bottom: 10px;
+            width: 100px !important; height: 100px !important;
+            border-radius: 50% !important; object-fit: cover !important;
+            border: 3px solid white; margin-bottom: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
@@ -36,37 +32,17 @@
         }
 
         .container { padding: 15px; max-width: 500px; margin: -30px auto 0; }
-        .card {
-            background: white; padding: 25px; border-radius: 15px;
-            margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-
+        .card { background: white; padding: 25px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
         h2 { color: #2e7d32; font-size: 1.4rem; margin-bottom: 15px; border-left: 5px solid #f57c00; padding-left: 10px; }
-        input { width: 100%; padding: 12px; margin-top: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
-        
-        button { width: 100%; padding: 14px; margin-top: 15px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1.1rem; color: white; transition: 0.3s; }
-        .btn-kishan { background: #2e7d32; }
-        .btn-majdoor { background: #f57c00; }
-        button:active { transform: scale(0.98); }
+        input { width: 100%; padding: 12px; margin-top: 10px; border: 1px solid #ddd; border-radius: 8px; }
+        button { width: 100%; padding: 14px; margin-top: 15px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; color: white; }
+        .btn-kishan { background: #2e7d32; } .btn-majdoor { background: #f57c00; }
 
-        /* POSTS LIST DESIGN */
-        .post-item { 
-            background: #fff; padding: 15px; margin-top: 15px; border-radius: 12px; 
-            border-left: 6px solid #2e7d32; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            position: relative;
-        }
+        /* POSTS LIST */
+        .post-item { background: #fff; padding: 15px; margin-top: 15px; border-radius: 12px; border-left: 6px solid #2e7d32; position: relative; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         .majdoor-post { border-left-color: #f57c00; }
-        .tag { font-size: 0.7rem; font-weight: bold; padding: 2px 8px; border-radius: 4px; color: white; }
-        .tag-k { background: #2e7d32; } .tag-m { background: #f57c00; }
-        
-        .call-link { 
-            display: inline-block; margin-top: 10px; color: #2e7d32; 
-            text-decoration: none; font-weight: bold; font-size: 1.1rem; 
-        }
-
-        .del-btn { position: absolute; top: 10px; right: 10px; color: #ff4444; border: none; background: none; width: auto; padding: 5px; cursor: pointer; }
-
-        .whatsapp-btn { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 1000; display: flex; align-items: center; gap: 8px; }
+        .del-btn { position: absolute; top: 10px; right: 10px; color: #ff4444; border: none; background: none; cursor: pointer; }
+        .whatsapp-btn { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; z-index: 1000; }
     </style>
 </head>
 <body>
@@ -80,15 +56,15 @@
     <div class="container">
         <section class="card">
             <h2><i class="fas fa-tractor"></i> Naya Kaam Dalein</h2>
-            <input type="text" id="kJob" placeholder="Kaunsa kaam hai? (e.g. Katai)">
+            <input type="text" id="kJob" placeholder="Kaunsa kaam hai?">
             <input type="text" id="kLoc" placeholder="Gaon ka naam">
             <input type="tel" id="kPhone" placeholder="Mobile Number">
-            <input type="number" id="kPrice" placeholder="Majdoori ₹ (Optional)">
+            <input type="number" id="kPrice" placeholder="Majdoori ₹">
             <button class="btn-kishan" onclick="savePost('kishan')">Post Karein</button>
         </section>
 
         <section class="card">
-            <h2><i class="fas fa-user-hard-hat"></i> Kaam Chahiye</h2>
+            <h2><i class="fas fa-hands-helping"></i> Kaam Chahiye</h2>
             <input type="text" id="mName" placeholder="Apna naam">
             <input type="text" id="mSkill" placeholder="Kya kaam kar sakte hain?">
             <input type="tel" id="mPhone" placeholder="Mobile Number">
@@ -99,93 +75,49 @@
         <div id="postDisplay"></div>
     </div>
 
-    <a href="https://wa.me/91XXXXXXXXXX" class="whatsapp-btn">
-        <i class="fab fa-whatsapp" style="font-size: 1.5rem;"></i> Help Chahiye?
-    </a>
+    <a href="https://wa.me/91XXXXXXXXXX" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Help?</a>
 
     <script>
-        /* --- JAVASCRIPT: STORAGE & LOGIC SECTION --- */
-        window.onload = function() {
-            renderPosts();
-        };
+        window.onload = renderPosts;
 
         function savePost(type) {
-            let data = {};
-            if(type === 'kishan') {
-                data = {
-                    type: 'kishan',
-                    title: document.getElementById('kJob').value,
-                    loc: document.getElementById('kLoc').value,
-                    phone: document.getElementById('kPhone').value,
-                    price: document.getElementById('kPrice').value,
-                    time: new Date().toLocaleString()
-                };
-            } else {
-                data = {
-                    type: 'majdoor',
-                    title: document.getElementById('mName').value,
-                    skill: document.getElementById('mSkill').value,
-                    phone: document.getElementById('mPhone').value,
-                    loc: "Available",
-                    time: new Date().toLocaleString()
-                };
-            }
+            let data = (type === 'kishan') ? {
+                type: 'kishan', title: document.getElementById('kJob').value,
+                loc: document.getElementById('kLoc').value, phone: document.getElementById('kPhone').value,
+                price: document.getElementById('kPrice').value, time: new Date().toLocaleString()
+            } : {
+                type: 'majdoor', title: document.getElementById('mName').value,
+                skill: document.getElementById('mSkill').value, phone: document.getElementById('mPhone').value,
+                loc: "Available", time: new Date().toLocaleString()
+            };
 
-            if(!data.title || !data.phone) {
-                alert("Kripya Naam aur Mobile Number zaroor bharein!");
-                return;
-            }
+            if(!data.title || !data.phone) { alert("Details bharein!"); return; }
 
-            // LocalStorage mein save karna
-            let allPosts = JSON.parse(localStorage.getItem('kishan_posts')) || [];
-            allPosts.unshift(data);
-            localStorage.setItem('kishan_posts', JSON.stringify(allPosts));
-
-            // Form clear karein
-            document.querySelectorAll('input').forEach(input => input.value = '');
+            let posts = JSON.parse(localStorage.getItem('kishan_posts')) || [];
+            posts.unshift(data);
+            localStorage.setItem('kishan_posts', JSON.stringify(posts));
+            document.querySelectorAll('input').forEach(i => i.value = '');
             renderPosts();
-            alert("Post saphalta purvak ho gayi!");
         }
 
         function renderPosts() {
-            let allPosts = JSON.parse(localStorage.getItem('kishan_posts')) || [];
+            let posts = JSON.parse(localStorage.getItem('kishan_posts')) || [];
             let display = document.getElementById('postDisplay');
             display.innerHTML = '';
-
-            allPosts.forEach((post, index) => {
+            posts.forEach((p, i) => {
                 let div = document.createElement('div');
-                div.className = post.type === 'kishan' ? 'post-item' : 'post-item majdoor-post';
-                
-                if(post.type === 'kishan') {
-                    div.innerHTML = `
-                        <span class="tag tag-k">Kishan ki Zarurat</span>
-                        <button class="del-btn" onclick="deletePost(${index})"><i class="fas fa-trash"></i></button>
-                        <h3 style="margin-top:5px;">${post.title}</h3>
-                        <p>📍 ${post.loc} | 💰 ₹${post.price || 'N/A'}</p>
-                        <a href="tel:${post.phone}" class="call-link"><i class="fas fa-phone"></i> ${post.phone}</a>
-                        <small style="display:block; margin-top:5px; color:#999;">${post.time}</small>
-                    `;
-                } else {
-                    div.innerHTML = `
-                        <span class="tag tag-m">Majdoor Available</span>
-                        <button class="del-btn" onclick="deletePost(${index})"><i class="fas fa-trash"></i></button>
-                        <h3 style="margin-top:5px;">${post.title}</h3>
-                        <p>💪 Hunar: ${post.skill}</p>
-                        <a href="tel:${post.phone}" class="call-link"><i class="fas fa-phone"></i> ${post.phone}</a>
-                        <small style="display:block; margin-top:5px; color:#999;">${post.time}</small>
-                    `;
-                }
+                div.className = (p.type === 'kishan') ? 'post-item' : 'post-item majdoor-post';
+                div.innerHTML = `<h3>${p.title}</h3><p>${p.loc} | 📞 ${p.phone}</p>
+                                 <button class="del-btn" onclick="deletePost(${i})"><i class="fas fa-trash"></i></button>`;
                 display.appendChild(div);
             });
         }
 
-        function deletePost(index) {
-            if(confirm("Kya aap is post ko hatana chahte hain?")) {
-                let posts = JSON.parse(localStorage.getItem('kishan_posts'));
-                posts.splice(index, 1);
-                localStorage.setItem('kishan_posts', JSON.stringify(posts));
-                renderPosts();
-            }
+        function deletePost(i) {
+            let posts = JSON.parse(localStorage.getItem('kishan_posts'));
+            posts.splice(i, 1);
+            localStorage.setItem('kishan_posts', JSON.stringify(posts));
+            renderPosts();
         }
     </script>
 </body>
