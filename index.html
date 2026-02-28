@@ -4,28 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kishan Dosti | Bihar-UP-WB-JH</title>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="manifest" href="manifest.json">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; background: #f0f4f0; }
-        header { 
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://img.freepik.com/free-photo/farmer-working-rice-field_1150-6052.jpg'); 
-            background-size: cover; padding: 40px 10px; text-align: center; color: white; 
-        }
-        .app-icon { 
-            width: 90px !important; height: 90px !important; 
-            border-radius: 50% !important; object-fit: cover !important; 
-            border: 3px solid white; margin-bottom: 10px; 
-        }
-        .tiranga-text { 
-            font-size: 2.2rem; font-weight: 900; 
-            background: linear-gradient(to bottom, #FF9933 33%, #FFFFFF 33%, #FFFFFF 66%, #138808 66%); 
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-            display: block; filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.5)); 
-        }
+        body { font-family: sans-serif; background: #f0f4f0; padding-bottom: 80px; }
+        header { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://img.freepik.com/free-photo/farmer-working-rice-field_1150-6052.jpg'); background-size: cover; padding: 35px 10px; text-align: center; color: white; }
+        .app-icon { width: 85px; height: 85px; border-radius: 50%; border: 3px solid #fff; object-fit: cover; margin-bottom: 10px; }
+        .tiranga-text { font-size: 2.5rem; font-weight: 900; background: linear-gradient(to bottom, #FF9933 33%, #FFFFFF 33%, #FFFFFF 66%, #138808 66%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block; filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.5)); }
         .state-banner { background: #138808; color: white; padding: 8px; font-size: 0.9rem; text-align: center; font-weight: bold; }
         .nav-tabs { display: flex; background: white; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .nav-tabs a { flex: 1; text-align: center; padding: 15px; text-decoration: none; color: #666; font-weight: bold; }
@@ -37,52 +23,42 @@
     </style>
 </head>
 <body>
-
 <header>
     <img src="my-photo.jpg" alt="Logo" class="app-icon" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2664/2664531.png'">
     <h1 class="tiranga-text">KISHAN DOSTI</h1>
 </header>
-
 <div class="state-banner">Bihar • UP • West Bengal • Jharkhand Special 🌾</div>
-
 <div class="nav-tabs">
-    <a href="index.html" class="active"><i class="fas fa-search"></i> Kaam Khojein</a>
-    <a href="post.html"><i class="fas fa-plus-circle"></i> Kaam Dalein</a>
+    <a href="index.html" class="active">Kaam Khojein</a>
+    <a href="post.html">Kaam Dalein</a>
 </div>
-
 <div class="container" id="postsDisplay">
     <p style="text-align:center; padding:50px;">Load ho raha hai... ⏳</p>
 </div>
-
-<a href="post.html" class="fab"><i class="fas fa-plus"></i> Naya Post</a>
+<a href="post.html" class="fab">+ Naya Post</a>
 
 <script>
-    // FINAL FIREBASE CONFIG
-    const firebaseConfig = { databaseURL: "https://kishan-dosti-regional-default-rtdb.firebaseio.com/" };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
-    // REAL-TIME DATA LOAD
-    db.ref('posts').on('value', (snap) => {
+    // Ye function bina Firebase ke cloud se data liyega
+    async function loadData() {
         const display = document.getElementById('postsDisplay');
-        display.innerHTML = '';
-        const data = snap.val();
-        if(!data) { 
-            display.innerHTML = "<p style='text-align:center; padding:40px; color:#888;'>Abhi koi post nahi hai. Pehle kaam dalein!</p>"; 
-            return; 
-        }
-        
-        Object.values(data).reverse().forEach(p => {
-            display.innerHTML += `
+        try {
+            const res = await fetch('https://api.jsonbin.io/v3/b/65df4b68dc74654018ac93d9/latest', {
+                headers: { 'X-Master-Key': '$2a$10$vN0U4p.N99n.73eC6rA9UeRkM.E9sD.eP5Y.G/Yk1w3qH.e4U.S.G' }
+            });
+            const data = await res.json();
+            const posts = data.record.posts || [];
+            display.innerHTML = posts.map(p => `
                 <div class="post-card">
-                    <span style="color:#2e7d32; font-weight:bold; font-size:0.8rem;"><i class="fas fa-map-marker-alt"></i> ${p.st}</span>
-                    <h3 style="margin:8px 0; color:#333;">${p.t}</h3>
-                    <p style="color:#555;">🏘️ <b>Gaon:</b> ${p.l}</p>
-                    <p style="color:#f57c00; font-weight:bold; margin-top:5px;">💰 Majdoori: ₹${p.pr}</p>
-                    <a href="tel:${p.p}" class="call-btn"><i class="fas fa-phone-alt"></i> CALL: ${p.p}</a>
-                </div>`;
-        });
-    });
+                    <span style="color:#2e7d32; font-weight:bold;">📍 ${p.st}</span>
+                    <h3 style="margin:5px 0;">${p.t}</h3>
+                    <p>🏘️ Gaon: ${p.l} | 💰 ₹${p.pr}</p>
+                    <a href="tel:${p.p}" class="call-btn"><i class="fas fa-phone"></i> CALL: ${p.p}</a>
+                </div>`).join('') || "<p style='text-align:center;'>Postings nahi mili.</p>";
+        } catch (e) {
+            display.innerHTML = "<p style='text-align:center;'>Internet check karein.</p>";
+        }
+    }
+    window.onload = loadData;
 </script>
 </body>
 </html>
