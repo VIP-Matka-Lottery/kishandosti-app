@@ -1,98 +1,98 @@
-/* General Settings */
+/* Sab kuch reset karne ke liye */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Poppins', sans-serif; background-color: #f0f4f0; color: #333; line-height: 1.6; }
+body { font-family: 'Poppins', Arial, sans-serif; background-color: #f4f7f4; color: #333; line-height: 1.6; }
 
-/* Header with Background Image */
-.hero-section {
-    background: url('https://img.freepik.com/free-photo/farmer-working-rice-field_1150-6052.jpg') no-repeat center center/cover;
-    height: 300px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Header Design */
+header {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                url('https://img.freepik.com/free-photo/farmer-working-rice-field_1150-6052.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 40px 20px;
     text-align: center;
     color: white;
 }
 
-.overlay {
-    background: rgba(0, 0, 0, 0.5); /* Image ko thoda dark karne ke liye */
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.header-img {
-    width: 80px;
+/* App Icon/Logo ko chhota aur sahi karne ke liye */
+.app-icon {
+    width: 80px;  /* Size chhota kiya gaya */
     height: 80px;
     border-radius: 50%;
     border: 3px solid #fff;
     margin-bottom: 10px;
+    background: white;
 }
 
-/* Tiranga Text Style */
+/* Tiranga Text - Bada aur Stylish */
 .tiranga-text {
     font-size: 3.5rem;
     font-weight: 900;
-    text-transform: uppercase;
-    background: linear-gradient(to bottom, #FF9933 30%, #FFFFFF 30%, #FFFFFF 70%, #138808 70%);
+    letter-spacing: 2px;
+    background: linear-gradient(to bottom, #FF9933 33%, #FFFFFF 33%, #FFFFFF 66%, #138808 66%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.5));
+    display: block;
+    margin: 10px 0;
 }
 
-/* Container & Cards */
-.container { padding: 20px; max-width: 800px; margin: -50px auto 0; }
+/* Cards Design */
+.container { padding: 20px; max-width: 600px; margin: -30px auto 0; }
 .card {
     background: white;
     padding: 25px;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-radius: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
 }
 
-h2 { color: #2e7d32; margin-bottom: 15px; border-left: 5px solid #f57c00; padding-left: 10px; }
+.form-title {
+    color: #2e7d32;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #f57c00;
+    padding-bottom: 5px;
+}
 
-/* Form Elements */
-.input-group input {
+/* Input Fields - Bada Text */
+.input-group label {
+    display: block;
+    font-weight: bold;
+    margin-top: 15px;
+    font-size: 1.1rem;
+}
+
+input {
     width: 100%;
     padding: 12px;
-    margin: 8px 0;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-}
-
-.btn-post {
-    background: #138808;
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    width: 100%;
-}
-
-/* Job List Style */
-.job-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #f9f9f9;
-    padding: 15px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
     border-radius: 10px;
-    margin-top: 10px;
-    border: 1px solid #eee;
+    font-size: 1.1rem;
 }
 
-.btn-apply {
-    background: #f57c00;
-    color: white;
+/* Buttons */
+button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
     border: none;
-    padding: 8px 20px;
-    border-radius: 5px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
     cursor: pointer;
+    color: white;
+}
+.btn-kishan { background-color: #2e7d32; }
+.btn-majdoor { background-color: #f57c00; }
+
+/* Unified List Items */
+.post-item {
+    background: #fff;
+    border-left: 8px solid #2e7d32;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
 /* WhatsApp Floating Button */
@@ -102,9 +102,10 @@ h2 { color: #2e7d32; margin-bottom: 15px; border-left: 5px solid #f57c00; paddin
     right: 20px;
     background: #25d366;
     color: white;
-    padding: 15px 25px;
+    padding: 12px 25px;
     border-radius: 50px;
     text-decoration: none;
     font-weight: bold;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 1000;
 }
