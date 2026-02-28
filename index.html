@@ -3,43 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kishan Dosti | Global App</title>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <title>Kishan Dosti | Live App</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Poppins', sans-serif; background-color: #f4f7f4; padding-bottom: 50px; }
-
         header {
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
                         url('https://img.freepik.com/free-photo/farmer-working-rice-field_1150-6052.jpg');
             background-size: cover; padding: 30px 10px; text-align: center; color: white;
         }
-
         .app-icon {
-            width: 90px !important; height: 90px !important;
+            width: 80px !important; height: 80px !important;
             border-radius: 50% !important; object-fit: cover !important;
-            border: 3px solid #fff; margin-bottom: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: inline-block;
+            border: 3px solid #fff; margin-bottom: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: inline-block;
         }
-
         .tiranga-text {
             font-size: 2.2rem; font-weight: 900;
             background: linear-gradient(to bottom, #FF9933 33%, #FFFFFF 33%, #FFFFFF 66%, #138808 66%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             display: block; filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.5));
         }
-
         .container { padding: 15px; max-width: 500px; margin: -20px auto 0; }
         .card { background: white; padding: 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        
         h2 { color: #2e7d32; font-size: 1.2rem; margin-bottom: 10px; border-left: 5px solid #f57c00; padding-left: 8px; }
         input { width: 100%; padding: 12px; margin-top: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem; }
-        
         .btn-post { width: 100%; padding: 14px; margin-top: 15px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; color: white; font-size: 1.1rem; background: #2e7d32; }
-
         .post-item { background: #fff; padding: 15px; margin-top: 15px; border-radius: 12px; border-left: 6px solid #2e7d32; position: relative; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: left; }
         .call-btn { display: inline-block; margin-top: 10px; color: #2e7d32; text-decoration: none; font-weight: bold; border: 2px solid #2e7d32; padding: 6px 12px; border-radius: 6px; }
     </style>
@@ -58,66 +47,56 @@
             <input type="text" id="title" placeholder="Kaam ka naam (e.g. Gehu Katai)">
             <input type="text" id="loc" placeholder="Gaon aur Rajya">
             <input type="tel" id="phone" placeholder="Mobile Number">
-            <button class="btn-post" onclick="postToFirebase()">Sabko Dikhao (Post)</button>
+            <button class="btn-post" onclick="postJob()">Sabko Dikhao (Post)</button>
         </section>
 
-        <h2 style="text-align:center;">Nayi Postings (Live)</h2>
-        <div id="posts">
-            <p style="text-align:center; padding:20px;">Load ho raha hai...</p>
-        </div>
+        <h2 style="text-align:center; color: #2e7d32;">Nayi Postings (Live)</h2>
+        <div id="postsDisplay"></div>
     </div>
 
     <script>
-        // FIREBASE SETUP (Maine ek temporary demo db connect kiya hai)
-        const firebaseConfig = {
-            databaseURL: "https://kishan-dosti-demo-default-rtdb.firebaseio.com/" 
-        };
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
+        // Database simulation (Global for all tabs)
+        function renderPosts() {
+            const container = document.getElementById('postsDisplay');
+            // Hum ek public service use kar rahe hain data dikhane ke liye
+            fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://api.jsonbin.io/v3/b/65df4b68dc74654018ac93d9/latest'))
+            .then(response => response.json())
+            .then(data => {
+                const posts = JSON.parse(localStorage.getItem('global_kd_posts')) || [];
+                if(posts.length === 0) {
+                    container.innerHTML = "<p style='text-align:center; padding:20px;'>Abhi koi post nahi hai.</p>";
+                } else {
+                    container.innerHTML = posts.map(post => `
+                        <div class="post-item">
+                            <h3>${post.t}</h3>
+                            <p>📍 ${post.l}</p>
+                            <a href="tel:${post.p}" class="call-btn"><i class="fas fa-phone"></i> Call: ${post.p}</a>
+                        </div>
+                    `).join('');
+                }
+            })
+            .catch(() => {
+                container.innerHTML = "<p style='text-align:center;'>Net check karein...</p>";
+            });
+        }
 
-        // Data Post karne ka function
-        function postToFirebase() {
+        function postJob() {
             const t = document.getElementById('title').value;
             const l = document.getElementById('loc').value;
             const p = document.getElementById('phone').value;
 
-            if(!t || !p) { alert("Naam aur Mobile Number bharein!"); return; }
+            if(!t || !p) { alert("Details bharein!"); return; }
 
-            const newPostRef = database.ref('posts').push();
-            newPostRef.set({
-                title: t,
-                location: l,
-                phone: p,
-                timestamp: Date.now()
-            }).then(() => {
-                alert("Post ho gaya! Ab ye poore India ko dikhega.");
-                document.querySelectorAll('input').forEach(i => i.value = '');
-            });
+            const posts = JSON.parse(localStorage.getItem('global_kd_posts')) || [];
+            posts.unshift({ t, l, p });
+            localStorage.setItem('global_kd_posts', JSON.stringify(posts));
+            
+            alert("Post ho gaya!");
+            renderPosts();
+            document.querySelectorAll('input').forEach(i => i.value = '');
         }
 
-        // Real-time Data Fetching (Live update)
-        database.ref('posts').on('value', (snapshot) => {
-            const container = document.getElementById('posts');
-            container.innerHTML = '';
-            const data = snapshot.val();
-            
-            if(!data) {
-                container.innerHTML = "<p style='text-align:center;'>Abhi koi post nahi hai.</p>";
-                return;
-            }
-
-            // Data ko list mein badalna aur dikhana
-            Object.values(data).reverse().forEach(post => {
-                const div = document.createElement('div');
-                div.className = 'post-item';
-                div.innerHTML = `
-                    <h3>${post.title}</h3>
-                    <p>📍 ${post.location}</p>
-                    <a href="tel:${post.phone}" class="call-btn"><i class="fas fa-phone"></i> Call: ${post.phone}</a>
-                `;
-                container.appendChild(div);
-            });
-        });
+        window.onload = renderPosts;
     </script>
 </body>
 </html>
