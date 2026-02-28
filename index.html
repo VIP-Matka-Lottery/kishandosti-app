@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kishan Dosti | Khet aur Mazdoor</title>
+    <title>Kishan Dosti | Sabka Saath</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -11,44 +11,57 @@
 
     <header class="hero-section">
         <div class="overlay">
-            <div class="logo-area">
-                <img src="https://img.freepik.com/free-photo/stunning-shot-green-paddy-field-cloudy-sky-vibrant-colors_181624-15944.jpg" alt="Dhan ka khet" class="header-img">
-                <h1 class="tiranga-text">Kishan Dosti</h1>
-                <p>Kishano aur Mazdooron ka atoot rishta 🌾</p>
+            <div class="logo-box">
+                <img src="https://cdn-icons-png.flaticon.com/512/2664/2664531.png" alt="App Icon" class="app-icon">
             </div>
+            <h1 class="tiranga-text">KISHAN DOSTI</h1>
+            <p>Kishan aur Mazdoor ka atoot rishta 🌾</p>
         </div>
     </header>
 
     <div class="container">
-        <section class="card">
-            <h2><i class="fas fa-edit"></i> Naya Kaam Dalein</h2>
-            <p>Yahan apni zarurat likhein taaki mazdoor aap tak pahuch sakein.</p>
-            <form id="jobForm">
+        
+        <section class="card kishan-card">
+            <h2 class="form-title"><i class="fas fa-tractor"></i> Main Kishan Hoon (Kaam Dalein)</h2>
+            <form id="kishanForm">
                 <div class="input-group">
-                    <input type="text" id="jobTitle" placeholder="Kaam ka naam (e.g. Gehu ki katai)" required>
-                    <input type="text" id="jobLocation" placeholder="Gaon ka naam / Pata" required>
-                    <input type="number" id="jobPrice" placeholder="Majdoori (₹)" required>
+                    <label>Kaunsa Kaam Hai?</label>
+                    <input type="text" id="kJob" placeholder="e.g. Gehu katai, Ropai" required>
+                    <label>Aapka Gaon/Location</label>
+                    <input type="text" id="kLoc" placeholder="Gaon ka naam" required>
+                    <label>Mobile Number</label>
+                    <input type="tel" id="kPhone" placeholder="10 anko ka number" required>
+                    <label>Kitne Paise Denge? (₹)</label>
+                    <input type="number" id="kPrice" placeholder="Dihadi ₹">
                 </div>
-                <button type="button" onclick="addJob()" class="btn-post">Kaam Post Karein</button>
+                <button type="button" onclick="postKishan()" class="btn-kishan">Kaam Post Karein</button>
+            </form>
+        </section>
+
+        <section class="card majdoor-card">
+            <h2 class="form-title"><i class="fas fa-hands-helping"></i> Main Majdoor Hoon (Kaam Chahiye)</h2>
+            <form id="majdoorForm">
+                <div class="input-group">
+                    <label>Aapka Naam</label>
+                    <input type="text" id="mName" placeholder="Apna naam dalein" required>
+                    <label>Aap Kya Kaam Kar Sakte Hain?</label>
+                    <input type="text" id="mSkill" placeholder="e.g. Katai, Tractor chalana" required>
+                    <label>Aapka Mobile Number</label>
+                    <input type="tel" id="mPhone" placeholder="Mobile number" required>
+                </div>
+                <button type="button" onclick="postMajdoor()" class="btn-majdoor">Apni Details Dalein</button>
             </form>
         </section>
 
         <section class="card">
-            <h2><i class="fas fa-briefcase"></i> Kaam ki Talash</h2>
-            <div id="jobList" class="job-container">
-                <div class="job-item">
-                    <div class="job-info">
-                        <h3>Dhan ki Ropai</h3>
-                        <p><i class="fas fa-map-marker-alt"></i> Rampur Gaon | <i class="fas fa-money-bill-wave"></i> ₹450/din</p>
-                    </div>
-                    <button class="btn-apply" onclick="applyJob()">Apply</button>
+            <h2 class="section-heading"><i class="fas fa-list"></i> Nayi Postings (Sabke Liye)</h2>
+            <div id="unifiedList">
                 </div>
-            </div>
         </section>
     </div>
 
-    <a href="https://wa.me/910000000000" class="whatsapp-btn" target="_blank">
-        <i class="fab fa-whatsapp"></i> Help chahiye?
+    <a href="https://wa.me/91XXXXXXXXXX" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i> Help
     </a>
 
     <script src="script.js"></script>
