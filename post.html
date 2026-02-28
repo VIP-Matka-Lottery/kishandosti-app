@@ -3,73 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaam Dalein | Kishan Dosti</title>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <title>Post | Kishan Dosti</title>
     <style>
         body { font-family: sans-serif; background: #f0f4f0; padding: 20px; }
         .card { background: white; padding: 25px; border-radius: 20px; max-width: 450px; margin: auto; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        h2 { color: #2e7d32; text-align: center; margin-bottom: 20px; }
-        label { font-weight: bold; color: #444; display: block; margin-bottom: 5px; }
-        select, input { width: 100%; padding: 14px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 10px; font-size: 1rem; outline: none; }
-        button { width: 100%; padding: 16px; background: #2e7d32; color: white; border: none; border-radius: 10px; font-weight: bold; font-size: 1.2rem; cursor: pointer; transition: 0.3s; }
-        button:active { transform: scale(0.98); }
-        .back { display: block; text-align: center; margin-top: 15px; color: #666; text-decoration: none; font-weight: bold; }
+        select, input { width: 100%; padding: 14px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 10px; font-size: 1rem; }
+        button { width: 100%; padding: 16px; background: #2e7d32; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
-
 <div class="card">
-    <h2>Naya Kaam Live Karein</h2>
-    
-    <label>Apna Rajya Chunein:</label>
-    <select id="st">
-        <option value="Bihar">Bihar</option>
-        <option value="Uttar Pradesh">Uttar Pradesh (UP)</option>
-        <option value="West Bengal">West Bengal</option>
-        <option value="Jharkhand">Jharkhand</option>
-    </select>
-
-    <label>Kaam Kya Hai?</label>
-    <input type="text" id="t" placeholder="e.g. Gehu Katai, Dhan Ropai">
-
-    <label>Gaon/Area ka Naam:</label>
-    <input type="text" id="l" placeholder="Apne gaon ka naam likhein">
-
-    <label>Mobile Number:</label>
-    <input type="tel" id="p" placeholder="Apna Number">
-
-    <label>Majdoori (₹):</label>
-    <input type="text" id="pr" placeholder="e.g. 400 ya Boli lagayein">
-    
-    <button id="saveBtn" onclick="saveData()">SABKO DIKHAO (Post)</button>
-    <a href="index.html" class="back"><i class="fas fa-arrow-left"></i> Piche Jayein</a>
+    <h2 style="text-align:center; color:#2e7d32;">Naya Kaam Post Karein</h2><br>
+    <select id="st"><option>Bihar</option><option>Uttar Pradesh</option><option>West Bengal</option><option>Jharkhand</option></select>
+    <input type="text" id="t" placeholder="Kaam kya hai?">
+    <input type="text" id="l" placeholder="Gaon ka naam">
+    <input type="tel" id="p" placeholder="Mobile Number">
+    <input type="text" id="pr" placeholder="Majdoori ₹">
+    <button id="btn" onclick="send()">SABKO DIKHAO (Post)</button>
 </div>
 
 <script>
-    const firebaseConfig = { databaseURL: "https://kishan-dosti-regional-default-rtdb.firebaseio.com/" };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
-    function saveData() {
-        const btn = document.getElementById('saveBtn');
+    async function send() {
+        const btn = document.getElementById('btn');
         const st = document.getElementById('st').value;
         const t = document.getElementById('t').value;
         const l = document.getElementById('l').value;
         const p = document.getElementById('p').value;
         const pr = document.getElementById('pr').value;
 
-        if(!t || !p || !l) { alert("Bhai, sari jankari bharna zaroori hai!"); return; }
-        
-        btn.disabled = true; btn.innerText = "Saving... ⏳";
+        if(!t || !p) return alert("Details bharein!");
+        btn.innerHTML = "Saving... ⏳"; btn.disabled = true;
 
-        db.ref('posts').push({ st, t, l, p, pr }).then(() => {
-            alert("Zindabad! Kaam ab sabko dikh raha hai.");
+        try {
+            // 1. Purana data lao
+            const res = await fetch('https://api.jsonbin.io/v3/b/65df4b68dc74654018ac93d9/latest', {
+                headers: { 'X-Master-Key': '$2a$10$vN0U4p.N99n.73eC6rA9UeRkM.E9sD.eP5Y.G/Yk1w3qH.e4U.S.G' }
+            });
+            const old = await res.json();
+            const newList = [{st, t, l, p, pr}, ...old.record.posts].slice(0, 20);
+
+            // 2. Naya data save karo
+            await fetch('https://api.jsonbin.io/v3/b/65df4b68dc74654018ac93d9', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json', 'X-Master-Key': '$2a$10$vN0U4p.N99n.73eC6rA9UeRkM.E9sD.eP5Y.G/Yk1w3qH.e4U.S.G' },
+                body: JSON.stringify({ posts: newList })
+            });
+
+            alert("Safalta! Live ho gaya.");
             window.location.href = "index.html";
-        }).catch(err => {
-            alert("Error! Net check karein.");
-            btn.disabled = false; btn.innerText = "POST KAREIN";
-        });
+        } catch (e) {
+            alert("Network Error!");
+            btn.innerHTML = "Retry"; btn.disabled = false;
+        }
     }
 </script>
 </body>
