@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kishan Dosti | Kaam Dalein</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background: #f4f7f4; }
+        .nav-tabs { display: flex; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .nav-tabs a { flex: 1; text-align: center; padding: 15px; text-decoration: none; color: #666; font-weight: bold; border-bottom: 3px solid transparent; }
+        .nav-tabs a.active { color: #2e7d32; border-bottom-color: #2e7d32; }
+        .container { padding: 20px; max-width: 500px; margin: auto; }
+        .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        h2 { color: #2e7d32; margin-bottom: 20px; text-align: center; }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
+        button { width: 100%; padding: 15px; background: #2e7d32; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="nav-tabs">
+    <a href="index.html"><i class="fas fa-search"></i> Kaam Khojein</a>
+    <a href="post.html" class="active"><i class="fas fa-plus-circle"></i> Kaam Dalein</a>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h2>Naya Kaam Post Karein</h2>
+        <input type="text" id="t" placeholder="Kaunsa kaam hai?">
+        <input type="text" id="l" placeholder="Gaon aur Rajya">
+        <input type="tel" id="p" placeholder="Mobile Number">
+        <input type="text" id="pr" placeholder="Majdoori (₹)">
+        <button onclick="submitJob()">Abhi Live Karein</button>
+    </div>
+</div>
+
+<script>
+    function submitJob() {
+        const t = document.getElementById('t').value;
+        const l = document.getElementById('l').value;
+        const p = document.getElementById('p').value;
+        const pr = document.getElementById('pr').value;
+
+        if(!t || !p) { alert("Details bharein!"); return; }
+
+        const posts = JSON.parse(localStorage.getItem('kd_live_data')) || [];
+        posts.unshift({ t, l, p, pr });
+        localStorage.setItem('kd_live_data', JSON.stringify(posts));
+
+        alert("Kaam post ho gaya! Khojne wale page par dekhein.");
+        window.location.href = "index.html";
+    }
+</script>
+</body>
+</html>
