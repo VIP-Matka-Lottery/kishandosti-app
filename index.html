@@ -7,22 +7,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; background: #f4f7f4; padding-bottom: 70px; }
+        body { font-family: 'Poppins', sans-serif; background: #f0f4f0; padding-bottom: 80px; }
         header { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://img.freepik.com/free-photo/farmer-working-rice-field_1150-6052.jpg'); background-size: cover; padding: 30px 10px; text-align: center; color: white; }
-        .app-icon { width: 80px; height: 80px; border-radius: 50%; border: 3px solid #fff; object-fit: cover; margin-bottom: 10px; }
-        .tiranga-text { font-size: 2.2rem; font-weight: 900; background: linear-gradient(to bottom, #FF9933 33%, #FFFFFF 33%, #FFFFFF 66%, #138808 66%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .app-icon { width: 85px; height: 85px; border-radius: 50%; border: 3px solid #fff; object-fit: cover; margin-bottom: 10px; }
+        .tiranga-text { font-size: 2.2rem; font-weight: 900; background: linear-gradient(to bottom, #FF9933 33%, #FFFFFF 33%, #FFFFFF 66%, #138808 66%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block; }
         
-        /* Navigation Tabs */
-        .nav-tabs { display: flex; background: white; sticky: top; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .nav-tabs { display: flex; background: white; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .nav-tabs a { flex: 1; text-align: center; padding: 15px; text-decoration: none; color: #666; font-weight: bold; border-bottom: 3px solid transparent; }
         .nav-tabs a.active { color: #2e7d32; border-bottom-color: #2e7d32; }
 
         .container { padding: 15px; max-width: 500px; margin: auto; }
-        .post-item { background: #fff; padding: 15px; margin-top: 15px; border-radius: 12px; border-left: 6px solid #2e7d32; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .call-btn { display: inline-block; margin-top: 10px; color: #2e7d32; text-decoration: none; font-weight: bold; border: 2px solid #2e7d32; padding: 6px 12px; border-radius: 6px; }
-        
-        /* Floating Button for Posting */
-        .post-link { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #2e7d32; color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 15px rgba(46,125,50,0.4); z-index: 1000; }
+        .post-item { background: #fff; padding: 15px; margin-top: 15px; border-radius: 12px; border-left: 6px solid #2e7d32; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .call-btn { display: inline-block; margin-top: 10px; color: white; background: #2e7d32; text-decoration: none; font-weight: bold; padding: 8px 15px; border-radius: 6px; }
+        .fab-post { position: fixed; bottom: 20px; right: 20px; background: #f57c00; color: white; padding: 15px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000; }
     </style>
 </head>
 <body>
@@ -30,7 +27,7 @@
 <header>
     <img src="my-photo.jpg" alt="Logo" class="app-icon" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2664/2664531.png'">
     <h1 class="tiranga-text">KISHAN DOSTI</h1>
-    <p>Sabka Saath, Sabka Vikas 🌾</p>
+    <p>Pure India ke liye Live Data 🌾</p>
 </header>
 
 <div class="nav-tabs">
@@ -40,32 +37,33 @@
 
 <div class="container">
     <h2 style="margin: 10px 0; color: #2e7d32;">Nayi Postings (Live)</h2>
-    <div id="postsDisplay">
-        <p style="text-align:center; padding:20px;">Net check karein aur posts load hone dein...</p>
-    </div>
+    <div id="postsDisplay"><p style="text-align:center; padding:30px;">Internet se data aa raha hai...</p></div>
 </div>
 
-<a href="post.html" class="post-link"><i class="fas fa-plus"></i> Naya Kaam Dalein</a>
+<a href="post.html" class="fab-post"><i class="fas fa-plus"></i> Post Karein</a>
 
 <script>
-    // Live Data Simulation
-    function loadLivePosts() {
-        const container = document.getElementById('postsDisplay');
-        const posts = JSON.parse(localStorage.getItem('kd_live_data')) || [];
-        
-        if(posts.length === 0) {
-            container.innerHTML = "<p style='text-align:center; padding:40px; color:#888;'>Abhi koi post nahi hai. Pehle kaam dalein!</p>";
-        } else {
-            container.innerHTML = posts.map(p => `
+    // Ye function internet se data liyega
+    async function loadData() {
+        const display = document.getElementById('postsDisplay');
+        try {
+            const res = await fetch('https://api.jsonbin.io/v3/b/65df4b68dc74654018ac93d9/latest', {
+                headers: { 'X-Master-Key': '$2a$10$vN0U4p.N99n.73eC6rA9UeRkM.E9sD.eP5Y.G/Yk1w3qH.e4U.S.G' }
+            });
+            const data = await res.json();
+            const posts = data.record.posts || [];
+            display.innerHTML = posts.map(p => `
                 <div class="post-item">
                     <h3>${p.t}</h3>
-                    <p style="color:#555;">📍 ${p.l} | 💰 ${p.pr}</p>
+                    <p>📍 ${p.l} | 💰 ₹${p.pr || 'N/A'}</p>
                     <a href="tel:${p.p}" class="call-btn"><i class="fas fa-phone"></i> Call: ${p.p}</a>
                 </div>
-            `).join('');
+            `).join('') || "<p style='text-align:center;'>Abhi koi post nahi hai.</p>";
+        } catch (e) {
+            display.innerHTML = "<p style='text-align:center;'>Net slow hai, refresh karein.</p>";
         }
     }
-    window.onload = loadLivePosts;
+    window.onload = loadData;
 </script>
 </body>
 </html>
